@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Grace - Affirmations & Bible Verses</title>
+    <meta name="theme-color" content="#d63384">
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiRGFpbHkgR3JhY2UiLCJzaG9ydF9uYW1lIjoiRGFpbHkgR3JhY2UiLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2ZmZmZmZiIsInRoZW1lX2NvbG9yIjoiI2Q2MzM4NCIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSGRwWkhSb1BTSXhNakFpSUdobGFXZG9kRDBpTVRJd0lqNEtJQ0E4WkdWbWN6NEtJQ0FnSUNBOGJHbHVaV0ZrUjNKaFpHbGxiblFnYVdRaUNtZHlaV0Y1VFdGcFh6VXRQeklmcEtBRWNEZ2dBTnNBRENzWVNpYUVNTUFBdmNvdFVBS1JudUFBQ3JHRm9taERHRmlDZCtKK1paZmY4TGtiZjF5SWdEZklnUFFCakFBQUFDZ2dJQ2dBSUNnaUFQc2dBZ0xQVERkdEQyRXF2OFhsRlJWK3R5MXpKenBlMUhNL1N5OGpJUitET09EdGRkWkJOWStOQVJRQUJBUUVqWkwxNlN0OWhERytBZ0pZR2prNE4xUUFMTU1HREVKNTF4MUhvSE9SL0s4UitEWUhESUJBTVJBU1U3MGVFREpnMXhHeFllN2cwQUE4M01yOFZaZ0kyUUFBQUFBQSZXeHRrbHNrREQ5QUFBa1FJZ0FRRkJRUUVcY0RNY2VFQVZGQWdDQmdVRUE5R4M2R0xjR1FGQUFGUWpEZ0JMUkJ5SldBLU4waGNBRE1BQk5BQU1kQmNBQ1VBb2t3YUdlX29rTG9OUUFBQUJORFJBdDBBUUFBQUNtdGdsKzJRQkc2R3dnQkJBRVdnUm9nckFaTEVFWVFRQUFKQndlUVNBREVLZ1EwdHNJNUNZdGxBQUVwUlVNLQ%3D%3D","sizes":"120x120","type":"image/svg+xml"}]}">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #fef7e7 0%, #f0f8ff 50%, #fff0f5 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .app-header {
+            background: linear-gradient(135deg, #d63384, #6f42c1);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(214, 51, 132, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .app-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .app-header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .admin-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 2;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1rem 0;
+            box-shadow: 0 8px 32px rgba(214, 51, 132, 0.1);
+            border: 1px solid rgba(255, 192, 203, 0.2);
+            max-width: 350px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, 
+                rgba(255, 182, 193, 0.2), 
+                rgba(173, 216, 230, 0.2), 
+                rgba(221, 160, 221, 0.2));
+            border-radius: 22px;
+            z-index: -1;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .card-type {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #6f42c1;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .card-content {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bible-verse .card-content {
+            font-style: italic;
+        }
+
+        .verse-reference {
+            font-size: 0.9rem;
+            color: #6f42c1;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        .theme-badge {
+            background: linear-gradient(135deg, #fd7e14, #ffc107);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #d63384, #6f42c1);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.3);
+            min-width: 120px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(214, 51, 132, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #495057);
+        }
+
+        .icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            color: #6f42c1;
+            font-size: 0.8rem;
+        }
+
+        .date-display {
+            font-size: 0.9rem;
+            color: #6f42c1;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        /* Admin Panel Styles */
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            display: none;
+            overflow-y: auto;
+        }
+
+        .admin-content {
+            background: white;
+            margin: 2rem;
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #d63384;
+            padding-bottom: 1rem;
+        }
+
+        .close-admin {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6c757d;
+        }
+
+        .admin-section {
+            margin-bottom: 2rem;
+        }
+
+        .admin-section h3 {
+            color: #d63384;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-family: 'Georgia', serif;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #d63384;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .content-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .content-item {
+            padding: 0.5rem;
+            border-bottom: 1px solid #f8f9fa;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 1rem 0.5rem;
+            }
+            
+            .card {
+                max-width: 320px;
+                padding: 1.5rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .admin-content {
+                margin: 1rem;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-header">
+        <button class="admin-toggle" onclick="toggleAdmin()">⚙️</button>
+        <h1>Daily Grace ✨</h1>
+        <p>Your daily dose of hope, faith & inspiration</p>
+    </div>
+
+    <div class="main-content">
+        <div class="date-display" id="currentDate"></div>
+        
+        <div class="card fade-in" id="mainCard">
+            <div class="theme-badge" id="themeBadge" style="display: none;"></div>
+            <div class="card-type" id="cardType">Bible Verse</div>
+            <div class="icon" id="cardIcon">📖</div>
+            <div class="card-content" id="cardContent">
+                "For I know the plans I have for you," declares the Lord, "plans to prosper you and not to harm you, to give you hope and a future."
+            </div>
+            <div class="verse-reference" id="verseReference">Jeremiah 29:11</div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn" onclick="getNewMessage()">New Message</button>
+            <button class="btn" onclick="shareMessage()">Share 💝</button>
+            <button class="btn btn-secondary" onclick="showByCategory()">Browse</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>With love from Coach Renata 💕<br>
+        <small>coachrenata.com</small></p>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-content">
+            <div class="admin-header">
+                <h2>Admin Panel</h2>
+                <button class="close-admin" onclick="toggleAdmin()">×</button>
+            </div>
+
+            <div class="admin-section">
+                <h3>Add Bible Verse</h3>
+                <div class="form-group">
+                    <label>Verse Text:</label>
+                    <textarea id="newVerseText" placeholder="Enter the verse text..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Reference:</label>
+                    <input type="text" id="newVerseRef" placeholder="e.g., John 3:16">
+                </div>
+                <div class="form-group">
+                    <label>Theme (optional):</label>
+                    <select id="verseTheme">
+                        <option value="">No specific theme</option>
+                        <option value="healing">Healing & Recovery</option>
+                        <option value="strength">Strength & Courage</option>
+                        <option value="love">God's Love</option>
+                        <option value="hope">Hope & Future</option>
+                        <option value="peace">Peace & Comfort</option>
+                        <option value="identity">Identity in Christ</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="addBibleVerse()">Add Verse</button>
+            </div>
+
+            <div class="admin-section">
+                <h3>Add Affirmation</h3>
+                <div class="form-group">
+                    <label>Affirmation Text:</label>
+                    <textarea id="newAffirmation" placeholder="Enter affirmation..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Category:</label>
+                    <select id="affirmationCategory">
+                        <option value="general">General</option>
+                        <option value="healing">Healing Journey</option>
+                        <option value="strength">Inner Strength</option>
+                        <option value="worth">Self-Worth</option>
+                        <option value="boundaries">Boundaries</option>
+                        <option value="growth">Personal Growth</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="addAffirmation()">Add Affirmation</button>
+            </div>
+
+            <div class="admin-section">
+                <h3>Add Prayer Prompt</h3>
+                <div class="form-group">
+                    <label>Prayer Prompt:</label>
+                    <textarea id="newPrayer" placeholder="Enter prayer prompt..."></textarea>
+                </div>
+                <button class="btn" onclick="addPrayer()">Add Prayer</button>
+            </div>
+
+            <div class="admin-section">
+                <h3>Manage Content</h3>
+                <div class="form-group">
+                    <label>View Content:</label>
+                    <select id="contentType" onchange="showContentList()">
+                        <option value="verses">Bible Verses</option>
+                        <option value="affirmations">Affirmations</option>
+                        <option value="quotes">Quotes</option>
+                        <option value="prayers">Prayers</option>
+                    </select>
+                </div>
+                <div class="content-list" id="contentList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Extended Content Arrays
+        let bibleVerses = [
+            { verse: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, to give you hope and a future.", reference: "Jeremiah 29:11", theme: "hope" },
+            { verse: "She is clothed with strength and dignity; she can laugh at the days to come.", reference: "Proverbs 31:25", theme: "strength" },
+            { verse: "And we know that in all things God works for the good of those who love him.", reference: "Romans 8:28", theme: "hope" },
+            { verse: "The Lord your God is with you, the Mighty Warrior who saves. He will take great delight in you; in his love he will no longer rebuke you, but will rejoice over you with singing.", reference: "Zephaniah 3:17", theme: "love" },
+            { verse: "He heals the brokenhearted and binds up their wounds.", reference: "Psalm 147:3", theme: "healing" },
+            { verse: "But those who hope in the Lord will renew their strength. They will soar on wings like eagles.", reference: "Isaiah 40:31", theme: "strength" },
+            { verse: "The Lord is close to the brokenhearted and saves those who are crushed in spirit.", reference: "Psalm 34:18", theme: "healing" },
+            { verse: "Cast all your anxiety on him because he cares for you.", reference: "1 Peter 5:7", theme: "peace" },
+            { verse: "You are fearfully and wonderfully made.", reference: "Psalm 139:14", theme: "identity" },
+            { verse: "The Lord will fight for you; you need only to be still.", reference: "Exodus 14:14", theme: "peace" },
+            { verse: "He gives power to the weak and strength to the powerless.", reference: "Isaiah 40:29", theme: "strength" },
+            { verse: "You have been set free from sin and have become slaves to righteousness.", reference: "Romans 6:18", theme: "identity" },
+            { verse: "No weapon forged against you will prevail.", reference: "Isaiah 54:17", theme: "strength" },
+            { verse: "The peace of God, which transcends all understanding, will guard your hearts and your minds.", reference: "Philippians 4:7", theme: "peace" },
+            { verse: "See, I am doing a new thing! Now it springs up; do you not perceive it?", reference: "Isaiah 43:19", theme: "hope" },
+            { verse: "The Lord has anointed me to bind up the brokenhearted.", reference: "Isaiah 61:1", theme: "healing" },
+            { verse: "You are chosen, beloved, set apart.", reference: "1 Peter 2:9", theme: "identity" },
+            { verse: "Nothing can separate you from the love of God.", reference: "Romans 8:38-39", theme: "love" }
+        ];
+
+        let affirmations = [
+            { text: "You are beautifully and wonderfully made by God.", category: "worth" },
+            { text: "Your past does not define your future.", category: "healing" },
+            { text: "You are stronger than you know and braver than you feel.", category: "strength" },
+            { text: "God's grace is sufficient for you in every moment.", category: "general" },
+            { text: "You are worthy of love, respect, and all good things.", category: "worth" },
+            { text: "Your voice matters and deserves to be heard.", category: "boundaries" },
+            { text: "You have the power to choose healing and hope.", category: "healing" },
+            { text: "You are not broken; you are becoming whole.", category: "healing" },
+            { text: "Your story is one of survival, strength, and victory.", category: "strength" },
+            { text: "God is writing a beautiful new chapter in your life.", category: "growth" },
+            { text: "You are enough, just as you are, right now.", category: "worth" },
+            { text: "Your healing journey is sacred and honored.", category: "healing" },
+            { text: "You can trust your instincts; they are gifts from God.", category: "boundaries" },
+            { text: "Every step forward is a victory worth celebrating.", category: "growth" },
+            { text: "You deserve peace, joy, and authentic connections.", category: "worth" },
+            { text: "Your sensitivity is a superpower, not a weakness.", category: "strength" },
+            { text: "You have survived 100% of your worst days.", category: "strength" },
+            { text: "It's safe for you to take up space in this world.", category: "boundaries" },
+            { text: "Your dreams and desires matter to God.", category: "growth" },
+            { text: "You are learning to trust the process of your healing.", category: "healing" }
+        ];
+
+        let inspirationalQuotes = [
+            "The wound is the place where the Light enters you. - Rumi",
+            "You were given this life because you are strong enough to live it.",
+            "Your current situation is not your final destination.",
+            "Healing isn't about forgetting; it's about choosing to thrive.",
+            "You are not what happened to you. You are what you choose to become.",
+            "Sometimes you don't realize your own strength until you face your greatest weakness.",
+            "The most beautiful people are those who have known trials and have found their way out of the depths.",
+            "Your journey through darkness has prepared you to shine your light.",
+            "Courage doesn't mean you don't get afraid. Courage means you don't let fear stop you.",
+            "The comeback is always stronger than the setback.",
+            "You are allowed to be both a masterpiece and a work in progress.",
+            "Your story could be the key that unlocks someone else's prison.",
+            "Growth begins at the end of your comfort zone.",
+            "You have been assigned this mountain to show others it can be moved."
+        ];
+
+        let prayers = [
+            "God, help me trust in Your perfect timing for my healing journey.",
+            "Lord, give me strength to set healthy boundaries with love and grace.",
+            "Father, remind me that I am fearfully and wonderfully made in Your image.",
+            "God, help me release what I cannot control into Your capable hands.",
+            "Lord, heal the parts of me that I cannot reach on my own.",
+            "Father, show me how to extend the same grace to myself that You give me.",
+            "God, help me see myself through Your loving eyes today.",
+            "Lord, grant me wisdom to know when to speak and when to rest in silence.",
+            "Father, surround me with people who see and celebrate my true worth.",
+            "God, help me transform my pain into purpose for Your glory."
+        ];
+
+        // Seasonal themes
+        const seasonalThemes = {
+            spring: { name: "New Beginnings", icon: "🌱" },
+            summer: { name: "Growth & Joy", icon: "🌻" },
+            fall: { name: "Harvest & Gratitude", icon: "🍂" },
+            winter: { name: "Rest & Reflection", icon: "❄️" }
+        };
+
+        // Current message tracking
+        let currentMessageType = 'bible';
+        let currentMessageIndex = 0;
+
+        // Initialize app
+        function initApp() {
+            loadStoredContent();
+            updateDate();
+            displayMessage();
+        }
+
+        function loadStoredContent() {
+            const storedVerses = localStorage.getItem('customBibleVerses');
+            const storedAffirmations = localStorage.getItem('customAffirmations');
+            const storedPrayers = localStorage.getItem('customPrayers');
+
+            if (storedVerses) {
+                const custom = JSON.parse(storedVerses);
+                bibleVerses = [...bibleVerses, ...custom];
+            }
+            if (storedAffirmations) {
+                const custom = JSON.parse(storedAffirmations);
+                affirmations = [...affirmations, ...custom];
+            }
+            if (storedPrayers) {
+                const custom = JSON.parse(storedPrayers);
+                prayers = [...prayers, ...custom];
+            }
+        }
+
+        function updateDate() {
+            const today = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            document.getElementById('currentDate').textContent = today.toLocaleDateString('en-US', options);
+        }
+
+        function getCurrentSeason() {
+            const month = new Date().getMonth();
+            if (month >= 2 && month <= 4) return 'spring';
+            if (month >= 5 && month <= 7) return 'summer';
+            if (month >= 8 && month <= 10) return 'fall';
+            return 'winter';
+        }
+
+        function displayMessage() {
+            const card = document.getElementById('mainCard');
+            const cardType = document.getElementById('cardType');
+            const cardIcon = document.getElementById('cardIcon');
+            const cardContent = document.getElementById('cardContent');
+            const verseReference = document.getElementById('verseReference');
+            const themeBadge = document.getElementById('themeBadge');
+
+            card.classList.remove('fade-in');
+            setTimeout(() => card.classList.add('fade-in'), 100);
+
+            const messageTypes = ['bible', 'affirmation', 'quote', 'prayer'];
+            const randomType = messageTypes[Math.floor(Math.random() * messageTypes.length)];
+            
+            if (randomType === 'bible') {
+                const verse = bibleVerses[Math.floor(Math.random() * bibleVerses.length)];
+                cardType.textContent = 'Bible Verse';
+                cardIcon.textContent = '📖';
+                cardContent.textContent = `"${verse.verse}"`;
+                verseReference.textContent = verse.reference;
+                verseReference.style.display = 'block';
+                
+                if (verse.theme) {
+                    themeBadge.textContent = verse.theme.charAt(0).toUpperCase() + verse.theme.slice(1);
+                    themeBadge.style.display = 'inline-block';
+                } else {
+                    themeBadge.style.display = 'none';
+                }
+            } else if (randomType === 'affirmation') {
+                const affirmation = affirmations[Math.floor(Math.random() * affirmations.length)];
+                cardType.textContent = 'Daily Affirmation';
+                cardIcon.textContent = '✨';
+                cardContent.textContent = affirmation.text || affirmation;
+                verseReference.style.display = 'none';
+                themeBadge.style.display = 'none';
+            } else if (randomType === 'prayer') {
+                const prayer = prayers[Math.floor(Math.random() * prayers.length)];
+                cardType.textContent = 'Prayer Prompt';
+                cardIcon.textContent = '🙏';
+                cardContent.textContent = prayer;
+                verseReference.style.display = 'none';
+                themeBadge.style.display = 'none';
+            } else {
+                const quote = inspirationalQuotes[Math.floor(Math.random() * inspirationalQuotes.length)];
+                cardType.textContent = 'Inspiration';
+                cardIcon.textContent = '🌟';
+                cardContent.textContent = quote;
+                verseReference.style.display = 'none';
+                themeBadge.style.display = 'none';
+            }
+        }
+
+        function getNewMessage() {
+            displayMessage();
+        }
+
+        function shareMessage() {
+            const content = document.getElementById('cardContent').textContent;
+            const reference = document.getElementById('verseReference').textContent;
+            const shareText = reference ? `${content}\n- ${reference}` : content;
+            const fullText = `${shareText}\n\nDaily Grace App - coachrenata.com`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Daily Grace',
+                    text: fullText
+                });
+            } else {
+                navigator.clipboard.writeText(fullText).then(() => {
+                    alert('Message copied to clipboard!');
+                });
+            }
+        }
+
+        function showByCategory() {
+            // Future feature - browse by theme/category
+            alert('Browse by category feature coming soon!');
+        }
+
+        // Admin Panel Functions
+        function toggleAdmin() {
+            const panel = document.getElementById('adminPanel');
+            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function addBibleVerse() {
+            const verseText = document.getElementById('newVerseText').value.trim();
+            const verseRef = document.getElementById('newVerseRef').value.trim();
+            const theme = document.getElementById('verseTheme').value;
+
+            if (!verseText || !verseRef) {
+                alert('Please fill in both verse text and reference');
+                return;
+            }
+
+            const newVerse = {
+                verse: verseText,
+                reference: verseRef,
+                theme: theme || null
+            };
+
+            bibleVerses.push(newVerse);
+            
+            // Store in localStorage
+            const customVerses = bibleVerses.filter((v, index) => index >= 18); // Original verses are first 18
+            localStorage.setItem('customBibleVerses', JSON.stringify(customVerses));
+
+            // Clear form
+            document.getElementById('newVerseText').value = '';
+            document.getElementById('newVerseRef').value = '';
+            document.getElementById('verseTheme').value = '';
+
+            alert('Bible verse added successfully!');
+            showContentList();
+        }
+
+        function addAffirmation() {
+            const affirmationText = document.getElementById('newAffirmation').value.trim();
+            const category = document.getElementById('affirmationCategory').value;
+
+            if (!affirmationText) {
+                alert('Please enter an affirmation');
+                return;
+            }
+
+            const newAffirmation = {
+                text: affirmationText,
+                category: category
+            };
+
+            affirmations.push(newAffirmation);
+            
+            // Store in localStorage
+            const customAffirmations = affirmations.filter((a, index) => index >= 20); // Original affirmations are first 20
+            localStorage.setItem('customAffirmations', JSON.stringify(customAffirmations));
+
+            // Clear form
+            document.getElementById('newAffirmation').value = '';
+            document.getElementById('affirmationCategory').value = 'general';
+
+            alert('Affirmation added successfully!');
+            showContentList();
+        }
+
+        function addPrayer() {
+            const prayerText = document.getElementById('newPrayer').value.trim();
+
+            if (!prayerText) {
+                alert('Please enter a prayer prompt');
+                return;
+            }
+
+            prayers.push(prayerText);
+            
+            // Store in localStorage
+            const customPrayers = prayers.filter((p, index) => index >= 10); // Original prayers are first 10
+            localStorage.setItem('customPrayers', JSON.stringify(customPrayers));
+
+            // Clear form
+            document.getElementById('newPrayer').value = '';
+
+            alert('Prayer prompt added successfully!');
+            showContentList();
+        }
+
+        function showContentList() {
+            const contentType = document.getElementById('contentType').value;
+            const contentList = document.getElementById('contentList');
+            
+            let items = [];
+            
+            switch(contentType) {
+                case 'verses':
+                    items = bibleVerses;
+                    break;
+                case 'affirmations':
+                    items = affirmations;
+                    break;
+                case 'quotes':
+                    items = inspirationalQuotes;
+                    break;
+                case 'prayers':
+                    items = prayers;
+                    break;
+            }
+
+            contentList.innerHTML = '';
+            
+            items.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'content-item';
+                
+                let displayText = '';
+                if (contentType === 'verses') {
+                    displayText = `"${item.verse.substring(0, 50)}..." - ${item.reference}`;
+                } else if (contentType === 'affirmations') {
+                    displayText = (item.text || item).substring(0, 60) + '...';
+                } else {
+                    displayText = item.substring(0, 60) + '...';
+                }
+                
+                div.innerHTML = `
+                    <span>${displayText}</span>
+                    <button class="delete-btn" onclick="deleteContent('${contentType}', ${index})">Delete</button>
+                `;
+                
+                contentList.appendChild(div);
+            });
+        }
+
+        function deleteContent(type, index) {
+            if (!confirm('Are you sure you want to delete this item?')) return;
+            
+            switch(type) {
+                case 'verses':
+                    bibleVerses.splice(index, 1);
+                    const customVerses = bibleVerses.filter((v, i) => i >= 18);
+                    localStorage.setItem('customBibleVerses', JSON.stringify(customVerses));
+                    break;
+                case 'affirmations':
+                    affirmations.splice(index, 1);
+                    const customAffirmations = affirmations.filter((a, i) => i >= 20);
+                    localStorage.setItem('customAffirmations', JSON.stringify(customAffirmations));
+                    break;
+                case 'prayers':
+                    prayers.splice(index, 1);
+                    const customPrayers = prayers.filter((p, i) => i >= 10);
+                    localStorage.setItem('customPrayers', JSON.stringify(customPrayers));
+                    break;
+                case 'quotes':
+                    inspirationalQuotes.splice(index, 1);
+                    break;
+            }
+            
+            showContentList();
+            alert('Item deleted successfully!');
+        }
+
+        // Service Worker registration for PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('data:text/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZnVuY3Rpb24oZXZlbnQpIHsKICBldmVudC53YWl0VW50aWwoY2FjaGVzLm9wZW4oJ2RhaWx5LWdyYWNlLXYxJykudGhlbihmdW5jdGlvbihjYWNoZSkgewogICAgcmV0dXJuIGNhY2hlLmFkZEFsbChbJy8nXSk7CiAgfSkpOwp9KTsKCnNlbGYuYWRkRXZlbnRMaXN0ZW5lcignZmV0Y2gnLCBmdW5jdGlvbihldmVudCkgewogIGV2ZW50LnJlc3BvbmRXaXRoKGZldGNoKGV2ZW50LnJlcXVlc3QpKTsKfSk7').then(function() {
+                console.log('Service Worker registered');
+            });
+        }
+
+        // Initialize when page loads
+        window.addEventListener('load', initApp);
+    </script>
+</body>
+</html>
